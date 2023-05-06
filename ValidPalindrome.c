@@ -34,24 +34,16 @@ Since an empty string reads the same forward and backward, it is a palindrome.
 #include <string.h>
 
 bool isPalindrome(char * s){
-
-    //if (s == "" || s == " " || s == NULL) {return true;} // Check for empty string
-    //if (strcmp(s, " ") == 0) {return true;} // Check for empty string
-    //if (strlen(s) == 1) {return true;} // Check for single char string
-
     int i = 0;
     int j = 0;
     char charLeft;
     char charRight;
 
-    // Move j to end of string
-    while (s[j+1] != '\0') {j++;}
+    while (s[j+1] != '\0') {j++;} // Move j to end of string
 
-    // Loop over string
     while (i < j) {
         while (isalnum(s[i]) == 0 && i < j) {i++;}
         while (isalnum(s[j]) == 0 && i < j) {j--;}
-        
         if (i < j) {
             charLeft = tolower(s[i]);
             charRight = tolower(s[j]);
