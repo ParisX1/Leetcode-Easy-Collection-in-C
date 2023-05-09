@@ -35,7 +35,7 @@ int maxDepth(struct TreeNode* root){
     if (leftHeight > rightHeight) {return leftHeight + 1;}
     else {return rightHeight + 1;}
 
-    // I also come up with the below when I did a second time:
+    // I also came up with the below when I did a second time:
     /*
     if (root == NULL) {return 0;}
     int maxLeft =   1 + maxDepth(root->left);
