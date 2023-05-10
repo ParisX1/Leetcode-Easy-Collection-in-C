@@ -47,8 +47,6 @@ int getHashIndex(int tableSize, int valueToHash){
 }
 
 void addHashEntry(struct HashEntry* hashTable, int tableSize, int currentNumber){
-    //int hashIndex = getHashIndex(tableSize, currentNumber);
-    //int i = hashIndex;
 
     int i = getHashIndex(tableSize, currentNumber);
     
@@ -84,7 +82,6 @@ int singleNumber(int* nums, int numsSize){
     // Add entries to hash table
     for (int i = 0; i < numsSize; i++) {
         currentNumber = nums[i];
-        //hashTableIndex =  ;
         addHashEntry(hashTable, numsSize, currentNumber);
     }
 
@@ -92,7 +89,7 @@ int singleNumber(int* nums, int numsSize){
     for (int i = 0; i < numsSize; i++) {
         if (hashTable[i].count == 1) return hashTable[i].value;
     }
-    return -1;
+    return 0;
 }
 
 int main() {
@@ -101,5 +98,3 @@ int main() {
     int result = singleNumber(nums, count);
     printf("%d", result);
 }
-
-// Add a hashmap !! implement you weakling !
