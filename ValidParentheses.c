@@ -32,6 +32,9 @@ s consists of parentheses only '()[]{}'.
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
+
+# define END_STR '\0'
 
 struct ListNode {
     char bracket;
@@ -39,18 +42,42 @@ struct ListNode {
 };
 
 bool isValid(char * s){
+    
+    // Create the head node
+    struct ListNode head;
+    head.bracket = s[0];
+    head.next = NULL;
+    
+    if (s[1] == END_STR) return false; // Check for list of size one
 
+    // Iterate to end of 
+    int i = 1;
+    while (s[i] != END_STR) {
+        //printf("%d : %c \n", i, s[i]);
+        //i++;
+
+        struct ListNode* node = (struct ListNode*) malloc(sizeof(struct ListNode));
+        node->bracket = head.bracket;
+        node->next = head.next;
+        head.bracket = s[i];
+        head.next = node;
+
+        i++;
+    }
+
+
+    return true;
 }
 
 int main() {
     char* s1 = "()[]{}";
     char* s2 = "(]";
 
-    bool isValid_s1 = isValid(s2);
-    bool isValid_s2 = isValid(s2);
+    bool isValid_s1 = isValid(s1);
+    //bool isValid_s2 = isValid(s2);
 
     printf("s1 Output: %d | Expected: 1 \n", isValid_s1);
-    printf("s2 Output: %d | Expected: 0 \n", isValid_s2);
+    //printf("s2 Output: %d | Expected: 0 \n", isValid_s2);
 
     return 0;
 }

@@ -1,7 +1,10 @@
 # Leetcode
-My Leetcode Solutions in c
+Solutions to Leetcode Easy "Top Interview Questions" in c
 
-These are currently in c in preparation for GIOS, summer 2023
+[Leetcode Easy Collection Top Interview Questions](https://leetcode.com/explore/interview/card/top-interview-questions-easy/)  
+These were completed in preparation for Georgia Tech's _Graduate Introduction to Operating Systems_ class, summer 2023.  Although the class is not an algorithms class, it heavily uses c, and so Leetcode seemed to be as good as way as any to practice c coding.
+
+Below are some notes / references for various algorithms.
 
 ## Single Number Hash
 Good reference code for structs, a simple hash table, and passing pointers to the struct array between methods.
