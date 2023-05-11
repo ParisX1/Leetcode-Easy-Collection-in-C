@@ -46,6 +46,15 @@ int getHashIndex(int tableSize, int valueToHash){
     return valueToHash % tableSize;
 }
 
+/**
+ * @brief   Add entry currentNumber into the hash table
+ *          If the element is already in the table, the count
+ *          field is incremented
+ * 
+ * @param hashTable hash table
+ * @param tableSize size of table
+ * @param currentNumber number to add
+ */
 void addHashEntry(struct HashEntry* hashTable, int tableSize, int currentNumber){
 
     int i = getHashIndex(tableSize, currentNumber);

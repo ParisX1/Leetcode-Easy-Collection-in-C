@@ -37,6 +37,8 @@ s consists of parentheses only '()[]{}'.
 # define STR_END '\0'
 
 char getExpectedBracket(char currentChar);
+bool isOpenBracket(char nodeBracket);
+bool isStackEmpty(struct Node* head);
 
 struct Node {
     char bracket;
@@ -54,13 +56,22 @@ bool isValid(char * s){
 
     // Create stack 
     int i = 1;
+    
     while (s[i] != STR_END) {
+    
+    }
+
+
+    /*
+    while (s[i] != STR_END) {
+       
         struct Node* node = (struct Node*) malloc(sizeof(struct Node));
         node->bracket = head.bracket;
         node->next = head.next;
         head.bracket = s[i];
         head.next = node;
         i++;
+        
     }
 
     // Iterate over stack
@@ -79,9 +90,26 @@ bool isValid(char * s){
 
         if (nodePtr->next != NULL) nodePtr = nodePtr->next;
     } 
+    */
 
     return true;
 } 
+
+bool isOpenBracket(char nodeBracket) {
+    return nodeBracket == '(' || nodeBracket == '[' || nodeBracket == '{';
+}
+
+bool isStackEmpty(struct Node* head) {
+    return head == NULL;
+}
+
+void pushStack(struct Node* head, char nodeBracket) {
+    struct Node* node = (struct Node*) malloc(sizeof(struct Node));
+    node->bracket = head->bracket;
+    node->next = head->next;
+    head->bracket = nodeBracket;
+    head->next = node;
+}
 
 /**
  * @brief get the expected next bracket expected from the stack
@@ -115,8 +143,8 @@ int main() {
 }
 
 /*
-So we need two stacks.  We need to pop the brackets as the open.
-Then you need to compare them as they close.
+You only add the open brackets to the stack.  Once you find a closing
+bracket, you pop from the stack and compare.
 
 I think it might be useful to implement a proper stack structure with 
 is empty, to setup the first node.  push and pop.
