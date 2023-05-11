@@ -34,52 +34,91 @@ s consists of parentheses only '()[]{}'.
 #include <stdbool.h>
 #include <stdlib.h>
 
-# define END_STR '\0'
+# define STR_END '\0'
 
-struct ListNode {
+char getExpectedBracket(char currentChar);
+
+struct Node {
     char bracket;
-    struct ListNode* next;
+    struct Node* next;
 };
 
 bool isValid(char * s){
     
-    // Create the head node
-    struct ListNode head;
+    // Create head node
+    struct Node head;
     head.bracket = s[0];
     head.next = NULL;
     
-    if (s[1] == END_STR) return false; // Check for list of size one
+    if (s[1] == STR_END) return false; // Check for list of size one
 
-    // Iterate to end of 
+    // Create stack 
     int i = 1;
-    while (s[i] != END_STR) {
-        //printf("%d : %c \n", i, s[i]);
-        //i++;
-
-        struct ListNode* node = (struct ListNode*) malloc(sizeof(struct ListNode));
+    while (s[i] != STR_END) {
+        struct Node* node = (struct Node*) malloc(sizeof(struct Node));
         node->bracket = head.bracket;
         node->next = head.next;
         head.bracket = s[i];
         head.next = node;
-
         i++;
     }
 
+    // Iterate over stack
+    struct Node* nodePtr = &head;
+    char currentChar;
+    char expectedChar; 
+    while (nodePtr->next != NULL) {
+        currentChar = nodePtr->bracket;
+        expectedChar = getExpectedBracket(currentChar);
+        if (expectedChar == STR_END) return false;
+        
+        // Check next node matches
+        nodePtr = nodePtr->next;
+        currentChar = nodePtr->bracket;
+        if (currentChar != expectedChar) return false;
+
+        if (nodePtr->next != NULL) nodePtr = nodePtr->next;
+    } 
 
     return true;
+} 
+
+/**
+ * @brief get the expected next bracket expected from the stack
+ * 
+ * @param currentChar the current bracket from the stack
+ * @return  char expected as the next bracket on the stack
+ *          return '\0' if char is not found
+ */
+char getExpectedBracket(char currentChar) {
+    if      (currentChar == '}')    return '{';
+    else if (currentChar == ']')    return '[';
+    else if (currentChar == ')')    return '(';
+    else                            return STR_END;
 }
+
 
 int main() {
     char* s1 = "()[]{}";
     char* s2 = "(]";
+    char* s3 = "{[]}";
 
     bool isValid_s1 = isValid(s1);
-    //bool isValid_s2 = isValid(s2);
+    bool isValid_s2 = isValid(s2);
+    bool isValid_s3 = isValid(s3);
 
     printf("s1 Output: %d | Expected: 1 \n", isValid_s1);
-    //printf("s2 Output: %d | Expected: 0 \n", isValid_s2);
+    printf("s2 Output: %d | Expected: 0 \n", isValid_s2);
+    printf("s3 Output: %d | Expected: 1 \n", isValid_s3);
 
     return 0;
 }
 
-// NEED TO IMPLEMENT USING A HEAP: LINKED LIST 
+/*
+So we need two stacks.  We need to pop the brackets as the open.
+Then you need to compare them as they close.
+
+I think it might be useful to implement a proper stack structure with 
+is empty, to setup the first node.  push and pop.
+
+*/

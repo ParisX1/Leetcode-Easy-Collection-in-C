@@ -15,12 +15,12 @@ Delete the given node. Note that by deleting the node, we do not mean removing i
 #include <stdio.h>
 #include <stdlib.h>
 
-struct ListNode {
+struct Node {
     int val;
-    struct ListNode *next;
+    struct Node *next;
  };
 
-void deleteNode(struct ListNode* node) {
+void deleteNode(struct Node* node) {
     while (node->next->next != NULL) {
         
         node->val = node->next->val;
@@ -32,10 +32,10 @@ void deleteNode(struct ListNode* node) {
 
 int main() {
 
-    struct ListNode one; 
-    struct ListNode two;
-    struct ListNode three;
-    struct ListNode four;
+    struct Node one; 
+    struct Node two;
+    struct Node three;
+    struct Node four;
 
     one.val = 4;
     two.val = 5;

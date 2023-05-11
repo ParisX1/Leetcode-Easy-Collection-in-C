@@ -30,15 +30,15 @@ https://leetcode.com/explore/interview/card/top-interview-questions-easy/93/link
 #include <stdlib.h>
 #include <stdio.h>
 
-struct ListNode {
+struct Node {
     int val;
-    struct ListNode *next;
+    struct Node *next;
  };
  
-struct ListNode* removeNthFromEnd(struct ListNode* head, int n){
+struct Node* removeNthFromEnd(struct Node* head, int n){
     int size = 0;
     int i = 1;
-    struct ListNode* nodePtr = head;
+    struct Node* nodePtr = head;
        
     // Find size of the list
     while (nodePtr != NULL) {
