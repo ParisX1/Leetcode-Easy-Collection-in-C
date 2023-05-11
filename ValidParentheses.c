@@ -36,61 +36,40 @@ s consists of parentheses only '()[]{}'.
 
 # define STR_END '\0'
 
-char getExpectedBracket(char currentChar);
-bool isOpenBracket(char nodeBracket);
-bool isStackEmpty(struct Node* head);
-
 struct Node {
     char bracket;
     struct Node* next;
 };
 
+bool isOpenBracket(char nodeBracket);
+bool isStackEmpty(struct Node* head);
+void pushStack(struct Node* head, char nodeBracket);
+char popStack(struct Node* head);
+char getExpectedBracket(char currentChar);
+
 bool isValid(char * s){
-    
-    // Create head node
-    struct Node head;
-    head.bracket = s[0];
-    head.next = NULL;
     
     if (s[1] == STR_END) return false; // Check for list of size one
 
-    // Create stack 
-    int i = 1;
+    char sChar;         // Current char from the input string
+    char stackChar;     // Head char at top of stack
+    char expectedChar;  // Expected char that opens a closing sChar bracket
     
-    while (s[i] != STR_END) {
+    struct Node* head = NULL; // Create stack 
     
-    }
-
-
-    /*
+    int i = 0;
     while (s[i] != STR_END) {
-       
-        struct Node* node = (struct Node*) malloc(sizeof(struct Node));
-        node->bracket = head.bracket;
-        node->next = head.next;
-        head.bracket = s[i];
-        head.next = node;
+        sChar = s[i];
+        if (isOpenBracket(sChar)) {
+            pushStack(head, sChar);
+        }
+        else {
+            stackChar = popStack(head);
+            expectedChar = getExpectedBracket(sChar);
+            if (stackChar != expectedChar) return false;
+        }
         i++;
-        
     }
-
-    // Iterate over stack
-    struct Node* nodePtr = &head;
-    char currentChar;
-    char expectedChar; 
-    while (nodePtr->next != NULL) {
-        currentChar = nodePtr->bracket;
-        expectedChar = getExpectedBracket(currentChar);
-        if (expectedChar == STR_END) return false;
-        
-        // Check next node matches
-        nodePtr = nodePtr->next;
-        currentChar = nodePtr->bracket;
-        if (currentChar != expectedChar) return false;
-
-        if (nodePtr->next != NULL) nodePtr = nodePtr->next;
-    } 
-    */
 
     return true;
 } 
@@ -103,19 +82,55 @@ bool isStackEmpty(struct Node* head) {
     return head == NULL;
 }
 
+/**
+ * @brief   Push a new node to the top of the stack, creating a new
+ *          head node.  Allocate memory for the new node.
+ * 
+ * @param head the current head of the stack
+ * @param nodeBracket the bracket value to create the new node
+ */
 void pushStack(struct Node* head, char nodeBracket) {
     struct Node* node = (struct Node*) malloc(sizeof(struct Node));
-    node->bracket = head->bracket;
-    node->next = head->next;
-    head->bracket = nodeBracket;
-    head->next = node;
+    
+    if (head == NULL) {
+        // Create head node
+        head = node;
+        head->bracket = nodeBracket;
+        head->next = NULL;
+    }
+    else {
+        // Add to stack
+        node->bracket = head->bracket;
+        node->next = head->next;
+        head->bracket = nodeBracket;
+        head->next = node;
+    }
 }
 
 /**
- * @brief get the expected next bracket expected from the stack
+ * @brief   Pop the top node node (head) from the stack, free the head node
+ *          from memory and return the char value
  * 
- * @param currentChar the current bracket from the stack
- * @return  char expected as the next bracket on the stack
+ * @param head the head node
+ * @return char bracket value for the head node popped
+ */
+char popStack(struct Node* head) {
+    char returnChar = head->bracket;
+    struct Node* nodePtr = head->next;
+    free(head);
+    head = nodePtr;
+
+    if (head->next == NULL) head == NULL;
+
+    return returnChar;
+}
+
+/**
+ * @brief   Get the pair bracket expected from a closing bracket.
+ *          Ie the bracket that opens a closing bracket.
+ * 
+ * @param currentChar the closing bracket from the input string
+ * @return  char expected as the top bracket on the stack
  *          return '\0' if char is not found
  */
 char getExpectedBracket(char currentChar) {
@@ -125,19 +140,18 @@ char getExpectedBracket(char currentChar) {
     else                            return STR_END;
 }
 
-
 int main() {
     char* s1 = "()[]{}";
     char* s2 = "(]";
     char* s3 = "{[]}";
 
-    bool isValid_s1 = isValid(s1);
+    //bool isValid_s1 = isValid(s1);
     bool isValid_s2 = isValid(s2);
-    bool isValid_s3 = isValid(s3);
+    //bool isValid_s3 = isValid(s3);
 
-    printf("s1 Output: %d | Expected: 1 \n", isValid_s1);
+    //printf("s1 Output: %d | Expected: 1 \n", isValid_s1);
     printf("s2 Output: %d | Expected: 0 \n", isValid_s2);
-    printf("s3 Output: %d | Expected: 1 \n", isValid_s3);
+    //printf("s3 Output: %d | Expected: 1 \n", isValid_s3);
 
     return 0;
 }

@@ -32,6 +32,8 @@ The input must be a binary string of length 32.
 Follow up: If this function is called many times, how would you optimize it?
 */
 
+#include <stdint.h>
+
 int hammingWeight(uint32_t n) { 
     int size = 32;
     int countOnes = 0;
