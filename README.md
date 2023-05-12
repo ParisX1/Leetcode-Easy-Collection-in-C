@@ -3,7 +3,9 @@ Solutions to Leetcode Easy "Top Interview Questions" in c
 
 [Leetcode Easy Collection Top Interview Questions](https://leetcode.com/explore/interview/card/top-interview-questions-easy/)  
 
-These were completed in preparation for Georgia Tech's _Graduate Introduction to Operating Systems_ class, summer 2023.  Although the class is not an algorithms class, it heavily uses c, and so Leetcode seemed a good way to practice c coding.
+These were completed in preparation for Georgia Tech's _Graduate Introduction to Operating Systems_ class, summer 2023.  Although the class is not an algorithms class, it heavily uses c, and so Leetcode seemed a good way to practice c coding.  
+
+[CS6200: Introduction to Operating Systems](https://omscs.gatech.edu/cs-6200-introduction-operating-systems)
 
 Notes / references for various algorithms below.
 
