@@ -7,6 +7,17 @@ These were completed in preparation for Georgia Tech's _Graduate Introduction to
 
 Notes / references for various algorithms below.
 
+## Valid Parentheses
+Implemented a stack, following the general outline from Sedgewick's _Algorithms in C_.  
+
+The problem is to check if a string of parentheses are outlined in the "correct" order.
+
+### Key Features
+* Stack implementation using linked list
+* Static variable to head node.  This was the key insight from Sedgewick
+* Includes a lot of checks for invalid pop/push operations, eg a pop when the stack is empty
+* Needed quite a few tests to pass LC
+
 ## Single Number Hash
 Good reference code for structs, a simple hash table, and passing pointers to the struct array between methods.
 
