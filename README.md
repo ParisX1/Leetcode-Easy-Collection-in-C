@@ -1,9 +1,9 @@
-# Leetcode
-Solutions to Leetcode Easy "Top Interview Questions" in c
+# Leetcode Easy - Using c
+Solutions to Leetcode Easy "Top Interview Questions" in C
 
 [Leetcode Easy Collection Top Interview Questions](https://leetcode.com/explore/interview/card/top-interview-questions-easy/)  
 
-These were completed in preparation for Georgia Tech's _Graduate Introduction to Operating Systems_ class, summer 2023.  Although the class is not an algorithms class, it heavily uses c, and so Leetcode seemed a good way to practice c coding.  
+These were completed in preparation for Georgia Tech's _Graduate Introduction to Operating Systems_ class, summer 2023.  Although the class is not an algorithms class, it heavily uses C, and so Leetcode seemed a good way to practice C coding.  
 
 [CS6200: Introduction to Operating Systems](https://omscs.gatech.edu/cs-6200-introduction-operating-systems)
 
@@ -45,7 +45,7 @@ The problem is to take an int n, and save into an array FIZZ/BUZZ for each numbe
 * Uses sprintf to create the strings and return pointers.  See C Programming A Modern Approach (King) p783
 
 # References
-* C Programming A Modern Approach _2nd ed_, King (2008)
-* The C Programming Language _2nd ed_, Kerninghan & Ritchie (1988)
-* Algorithms in C _3rd ed_ Parts 1-4, Sedgewick (1998)
+* C Programming A Modern Approach _2nd Ed_, King (2008)
+* The C Programming Language _2nd Ed_, Kerninghan & Ritchie (1988)
+* Algorithms in C Parts 1-4 _3rd Ed_, Sedgewick (1998)
 
