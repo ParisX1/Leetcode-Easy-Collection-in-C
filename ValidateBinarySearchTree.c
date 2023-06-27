@@ -20,4 +20,4 @@ bool isValidBST(struct TreeNode* root){
         return isValidBST(root->left);
         return isValidBST(root->right);
     }
-}
+} 
