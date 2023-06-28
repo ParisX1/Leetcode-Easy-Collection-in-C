@@ -48,35 +48,56 @@ typedef struct {
 
 } Solution;
 
+void copyArray(int* sourceArr, int* targetArr, int size) {
+    for (int i = 0; i < size; i++) {
+        targetArr[i] = sourceArr[i];
+    }
+}
+
 /*
 * Initializes the object with the integer array nums
 */
 Solution* solutionCreate(int* nums, int numsSize) {
-    Solution* newSolutionPtr = (Solution*) malloc(sizeof(Solution));
-    newSolutionPtr->arraySize = numsSize;
-    newSolutionPtr->originalArray = nums;
-    newSolutionPtr->currentArray = nums;
-    return newSolutionPtr;
+    Solution* solutionPtr = (Solution*) malloc(sizeof(Solution)); 
+    
+    // Allocate memory for struct Arrays
+    int* origArr = (int*) malloc(sizeof(int) * numsSize);
+    int* currArr = (int*) malloc(sizeof(int) * numsSize);
+
+    // Copy values from nums[] into struct arrays
+    copyArray(nums, origArr, numsSize);
+    copyArray(origArr, currArr, numsSize);
+    
+    // Set struct values
+    solutionPtr->arraySize = numsSize;
+    solutionPtr->originalArray = origArr;
+    solutionPtr->currentArray = currArr;
+    return solutionPtr;
 }
 
 /*
 * Resets the array to its original configuration 
 */
 int* solutionReset(Solution* obj, int* retSize) {
-    obj->currentArray = obj->originalArray;
+    *retSize = obj->arraySize;
+    copyArray(obj->originalArray, obj->currentArray, *retSize);
     return obj->currentArray;
 }
 
 /**
  * Returns a random shuffling of the array
+ * Uses Algorithm for "Randomly permuting arrays" - CLRS (3rd Ed) p126
+ * For use of rand() see C Programming A Modern Approach (2nd Ed) by King pp172-193
  */
 int* solutionShuffle(Solution* obj, int* retSize) {
-    srand(time(NULL));   
+    *retSize = obj->arraySize;
+    //srand((unsigned) time(NULL)); // Removed or would not pass Leetcode - all random numbers were the same!
     int randomIndex;
     int temp;
     int* arrayPtr = obj->currentArray;
-    for (int i = 0; i < *retSize; i++) {
-        randomIndex = rand() % *retSize; 
+    for (int i = 0; i < *retSize - 1; i++) {
+        randomIndex = rand() % ((*retSize - i)) + i;
+        //printf("%d\n", randomIndex);
         temp = arrayPtr[i];
         arrayPtr[i] = arrayPtr[randomIndex];
         arrayPtr[randomIndex] = temp;
@@ -85,13 +106,14 @@ int* solutionShuffle(Solution* obj, int* retSize) {
 }
 
 void solutionFree(Solution* obj) {
+    free(obj->currentArray);
+    free(obj->originalArray);
     free(obj);
 }
 
-// Driver code below //
+////////////// Driver code below //////////////
 
 void printArray(int* objArray, int* retSize) {
-    //int* arrayPtr = obj->currentArray;
     printf("~ Array ~\n");
     for (int i = 0; i < *retSize; i++) {
         printf("%d \n", objArray[i]);

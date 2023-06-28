@@ -9,6 +9,16 @@ These were completed in preparation for Georgia Tech's _Graduate Introduction to
 
 Notes / references for various algorithms below.
 
+## Shuffle an Array
+Pretty simple idea: randomly shuffle the values in an array.
+
+### Key Features
+* Two arrays held in a struct - original and current
+* Functions to set, shuffle and reset the arrays
+* Malloc used to allocate memory for the struct and the two arrays
+* Free is used to reset function
+* The shuffle function (from CLRS) used rand(), though srand() didn't work for the random seed and needed to be removed to pass LC tester (or all random numbers were the same!)
+
 ## Valid Parentheses
 Implemented a stack, following the general outline from Sedgewick's _Algorithms in C_.  
 
@@ -48,4 +58,5 @@ The problem is to take an int n, and save into an array FIZZ/BUZZ for each numbe
 * C Programming A Modern Approach _2nd Ed_, King (2008)
 * The C Programming Language _2nd Ed_, Kerninghan & Ritchie (1988)
 * Algorithms in C Parts 1-4 _3rd Ed_, Sedgewick (1998)
-
+* Introduction to Algorithms _3rd Ed_, CLRS (2009)
+* The Standard C Library, Plauger (1992)
