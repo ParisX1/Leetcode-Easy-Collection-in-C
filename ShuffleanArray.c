@@ -48,39 +48,68 @@ typedef struct {
 
 } Solution;
 
-
+/*
+* Initializes the object with the integer array nums
+*/
 Solution* solutionCreate(int* nums, int numsSize) {
-    
+    Solution* newSolutionPtr = (Solution*) malloc(sizeof(Solution));
+    newSolutionPtr->arraySize = numsSize;
+    newSolutionPtr->originalArray = nums;
+    newSolutionPtr->currentArray = nums;
+    return newSolutionPtr;
 }
 
+/*
+* Resets the array to its original configuration 
+*/
 int* solutionReset(Solution* obj, int* retSize) {
-  
+    obj->currentArray = obj->originalArray;
+    return obj->currentArray;
 }
 
+/**
+ * Returns a random shuffling of the array
+ */
 int* solutionShuffle(Solution* obj, int* retSize) {
     srand(time(NULL));   
     int randomIndex;
     int temp;
-    for (int i = 0; i < retSize; i++) {
+    int* arrayPtr = obj->currentArray;
+    for (int i = 0; i < *retSize; i++) {
         randomIndex = rand() % *retSize; 
-        temp = obj[i];
-        obj[i] = obj[randomIndex];
-        obj[randomIndex] = temp;
-    return randomIndex;
+        temp = arrayPtr[i];
+        arrayPtr[i] = arrayPtr[randomIndex];
+        arrayPtr[randomIndex] = temp;
+    }
+    return obj->currentArray;
 }
 
 void solutionFree(Solution* obj) {
-    
+    free(obj);
+}
+
+// Driver code below //
+
+void printArray(int* objArray, int* retSize) {
+    //int* arrayPtr = obj->currentArray;
+    printf("~ Array ~\n");
+    for (int i = 0; i < *retSize; i++) {
+        printf("%d \n", objArray[i]);
+    }
+    printf("~~~\n\n");
 }
 
 int main() {
 
-    int nums[] = {1, 2, 3}
+    int nums[] = {1, 2, 3};
     int numsSize = 3;
 
     Solution* obj = solutionCreate(nums, numsSize);
-    int* param_1 = solutionReset(obj, retSize); 
-    int* param_2 = solutionShuffle(obj, retSize);
+    printArray(obj->currentArray, &numsSize);
+    int* param_1 = solutionReset(obj, &numsSize); 
+    printArray(param_1, &numsSize);
+    int* param_2 = solutionShuffle(obj, &numsSize);
+    printArray(param_2, &numsSize);
     solutionFree(obj);
 }
 
@@ -88,8 +117,6 @@ int main() {
  * Your Solution struct will be instantiated and called as such:
  * Solution* obj = solutionCreate(nums, numsSize);
  * int* param_1 = solutionReset(obj, retSize);
- 
  * int* param_2 = solutionShuffle(obj, retSize);
- 
  * solutionFree(obj);
 */
