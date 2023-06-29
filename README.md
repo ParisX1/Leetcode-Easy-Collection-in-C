@@ -9,6 +9,12 @@ These were completed in preparation for Georgia Tech's _Graduate Introduction to
 
 Notes / references for various algorithms below.
 
+## Hamming Distance
+Take two ints and calculate where the values differ in the binary representation
+
+### Key Features
+* Uses bit shifting  
+
 ## Shuffle an Array
 Pretty simple idea: randomly shuffle the values in an array.
 
