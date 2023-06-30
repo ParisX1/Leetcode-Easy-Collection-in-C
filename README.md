@@ -9,8 +9,14 @@ These were completed in preparation for Georgia Tech's _Graduate Introduction to
 
 Notes / references for various algorithms below.
 
+## Valid Anagram
+Is one string the anagram of another.
+
+### Key Features
+* Implements a polynomial hashing for each char.  We loop over each string and add/sub the hashing values at string1[i], string2[i] so that the resulting sum is zero if the two strings are valid anagrams.
+
 ## Hamming Distance
-Take two ints and calculate where the values differ in the binary representation
+Take two ints and calculate where the values differ in their binary representations.
 
 ### Key Features
 * Uses bit shifting  
