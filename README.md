@@ -9,6 +9,12 @@ These were completed in preparation for Georgia Tech's _Graduate Introduction to
 
 Notes / references for various algorithms below.
 
+## Plus One
+Increase the value of a number, represented by an array, by one.  Needs to allow for carry-over and thus resizing the array.
+
+### Key Features
+* Implements realloc to resize an array.
+
 ## Valid Anagram
 Is one string the anagram of another.
 
