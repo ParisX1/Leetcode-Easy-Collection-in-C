@@ -9,6 +9,14 @@ These were completed in preparation for Georgia Tech's _Graduate Introduction to
 
 Notes / references for various algorithms below.
 
+## Longest Common Prefix
+Find the longest common n chars in an array of strings.  Ie find the longest common prefix.
+
+### Key Features
+* Array of string is of type char**
+* Input array is instantiated using malloc() and each string assigned within the array using strdup()
+* The result is returned as a char*, so used malloc and stored in a buffer with a string terminating char
+
 ## Plus One
 Increase the value of a number, represented by an array, by one.  Needs to allow for carry-over and thus resizing the array.
 
