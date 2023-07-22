@@ -9,6 +9,14 @@ These were completed in preparation for Georgia Tech's _Graduate Introduction to
 
 Notes / references for various algorithms below.
 
+## Intersection of Two Arrays II  
+Given two integer arrays, return an array of their intersection.  "Intersection" meaning when an element of the first array is also contained in the second array (in any order).  
+
+### Key Features
+* "Hash map" counting instances of each number found
+* Malloc and realloc (_reallocarray_ actually) to dynamically resize the results array
+
+
 ## Longest Common Prefix
 Find the longest common n chars in an array of strings.  Ie find the longest common prefix.
 
@@ -21,7 +29,7 @@ Find the longest common n chars in an array of strings.  Ie find the longest com
 Increase the value of a number, represented by an array, by one.  Needs to allow for carry-over and thus resizing the array.
 
 ### Key Features
-* Implements realloc to resize an array.
+* Implements realloc to resize an array
 
 ## Valid Anagram
 Is one string the anagram of another.
