@@ -28,17 +28,22 @@ Constraints:
 Follow up: If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
 */
 
+#include <stdio.h>
+
 int maxSubArray(int* nums, int numsSize){
 
     // Start left end and right end to find best starting and ending point
     // Eg from right-end, if the sum is positive, include
 
-    int startSum = 0;
+    //if (numsSize == 1 ) return nums[0];
+
+    int startSum = nums[0];
     int endSum = 0;
+    //if (numsSize > 1) endSum = nums[numsSize-1];
     
     int midPoint = numsSize / 2;
     
-    for (int i = 0; i < midPoint; i++) {
+    for (int i = 1; i < midPoint; i++) {
         if (startSum + nums[i] > nums[i]) startSum = startSum + nums[i];
         else startSum = nums[i];
     }
@@ -48,32 +53,37 @@ int maxSubArray(int* nums, int numsSize){
         else endSum = nums[i];
     }
 
+    printf("startSum: \t%d \nendSum: \t%d \n", startSum, endSum);
+
+    int totalSum = startSum + endSum;
+    if (totalSum > startSum && totalSum > endSum) return totalSum;
+    else {
+        if (startSum > endSum) return startSum;
+        else return endSum;
+    }
+    /*
     if (startSum + endSum > startSum) return startSum + endSum;
     else {
         if (startSum > endSum) return startSum;
         else return endSum;
     }
-
-    /*
-    while (arrayStart < arrayEnd) {
-        if (startSum + nums[arrayStart] > nums[arrayStart]) startSum = startSum + nums[arrayStart];
-        else startSum = nums[arrayStart];
-        
-        if (endSum + nums[arrayEnd] > nums[arrayEnd]) endSum = endSum + nums[arrayEnd];
-        else endSum = nums[arrayEnd];
-        
-        arrayStart++;
-        arrayEnd--;
-    }
     */
-   
 }
 
 int main() {
-
+    /*
     int input01[] = {-2,1,-3,4,-1,2,1,-5,4};
     int input01Size = 9;
     int input01Solution = 6;
     int result = maxSubArray(input01, input01Size);
     printf("Result: \t%d \nSolution: \t%d \n", result, input01Solution);
+    */
+    printf("~~~\n");
+
+    int input02[] = {-2,1};
+    int input02Size = 2;
+    int input02Solution = 1;
+    int result02 = maxSubArray(input02, input02Size);
+    printf("Result: \t%d \nSolution: \t%d \n", result02, input02Solution);
+
 }
