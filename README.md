@@ -9,13 +9,19 @@ These were completed in preparation for Georgia Tech's _Graduate Introduction to
 
 Notes / references for various algorithms below.
 
+## Valid Sudoku  
+Check if the given state of a 9 x 9 Sudoku board is valid.
+
+### Key Features
+* For testing, char** (pointer to 2d char arrays) are created.  This requires heap allocation to pass the pointer-pointers (char**) into functions
+* The char** is malloc'd and then each row is instantiated using: board[x] = (char[]) {...}  
+
 ## Intersection of Two Arrays II  
 Given two integer arrays, return an array of their intersection.  "Intersection" meaning when an element of the first array is also contained in the second array (in any order).  
 
 ### Key Features
 * "Hash map" counting instances of each number found
 * Malloc and realloc (_reallocarray_ actually) to dynamically resize the results array
-
 
 ## Longest Common Prefix
 Find the longest common n chars in an array of strings.  Ie find the longest common prefix.
