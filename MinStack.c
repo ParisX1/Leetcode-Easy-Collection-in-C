@@ -38,41 +38,40 @@ Constraints:
 * At most 3 * 104 calls will be made to push, pop, top, and getMin.
 */
 
-
-
 #define MIN_STACK_SIZE 30000
 
 typedef struct {
-    int* stackArray;    // Stack
-    int minIndex;       // Index for min item
+    int* stackArray;    // Min Heap Stack 
+    int* minArray;      // Stack of min values - each index is the min to that point
     int topIndex;       // Top of stack
 } MinStack;
 
-// Find and set the minimum in the min stack
-void setMin(MinStack* obj) {
-    int currentMin = obj->stackArray[0];
-    for (int i = 0; i < obj->topIndex; i++) {
-        if (obj->stackArray[i] <= currentMin) obj->minIndex = i;
-    }
-}
-
 MinStack* minStackCreate() {
-    MinStack* minStack = (MinStack*) malloc(sizeof(MinStack));
-    minStack->stackArray = (int*) malloc(sizeof(int) * MIN_STACK_SIZE);
-    minStack->minIndex = 0;
-    minStack->topIndex = 0;
+    MinStack* minStack      = (MinStack*) malloc(sizeof(MinStack));
+    minStack->stackArray    = (int*) malloc(sizeof(int) * MIN_STACK_SIZE);
+    minStack->minArray      = (int*) malloc(sizeof(int) * MIN_STACK_SIZE);
+    minStack->topIndex      = 0;
     return minStack;
 }
 
+// This could be improved by using realloc() or reallocarray().  Though might be slower when pushing
 void minStackPush(MinStack* obj, int val) {
+    
     obj->stackArray[obj->topIndex] = val;
-    if (val < obj->stackArray[obj->minIndex]) obj->minIndex = obj->topIndex;
+    
+    int currentMin;
+    if (obj->topIndex == 0) currentMin = val;
+    else                    currentMin = obj->minArray[obj->topIndex-1];
+        
+    if (val <= currentMin)  obj->minArray[obj->topIndex] = val;
+    else                    obj->minArray[obj->topIndex] = currentMin;
+    
     obj->topIndex = obj->topIndex + 1;
 }
 
+// This could be improved by using realloc() or reallocarray()
 void minStackPop(MinStack* obj) {
     obj->topIndex = obj->topIndex - 1;
-    if (obj->minIndex == obj->topIndex) setMin(obj);
 }
 
 int minStackTop(MinStack* obj) {
@@ -80,10 +79,12 @@ int minStackTop(MinStack* obj) {
 }
 
 int minStackGetMin(MinStack* obj) {
-    return obj->stackArray[obj->minIndex];
+    return obj->minArray[obj->topIndex-1];
 }
 
 void minStackFree(MinStack* obj) {
+    free(obj->stackArray);
+    free(obj->minArray);
     free(obj);
 }
 
