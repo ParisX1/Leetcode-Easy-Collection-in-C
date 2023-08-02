@@ -50,8 +50,8 @@ int findListSize(struct ListNode* head) {
     return i;
 }
 
-// Reverses a linked-list from startNode to end of the list
-// Returns a pointer to the list node in the list
+// Reverse a linked-list from startNode to end of the list
+// Returns a pointer to the last node in the list
 struct ListNode* reverseList(struct ListNode* startNode) {
     struct ListNode* prevPtr = NULL;
     struct ListNode* currPtr = startNode;
