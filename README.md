@@ -9,6 +9,14 @@ These were completed in preparation for Georgia Tech's _Graduate Introduction to
 
 Notes / references for various algorithms below.
 
+## Binary Tree Level Order Traversal  
+Return the values for a level order traversal of a binary tree.  The returned array is an array of arrays, so each level is a nested array.
+
+### Key Features
+* Requires the creation of a queue data structure
+* Dynamic creation of arrays based on number of, and the size of each, sub-array
+* For a detailed discussion, see _Algorithms in C_ Chapter Five, especially Ch 5.6 on tree traversal
+
 ## Valid Sudoku  
 Check if the given state of a 9 x 9 Sudoku board is valid.
 
