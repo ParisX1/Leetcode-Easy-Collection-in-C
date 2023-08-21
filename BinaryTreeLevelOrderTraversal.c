@@ -42,6 +42,12 @@ The number of nodes in the tree is in the range [0, 2000].
 
 #define QUEUE_SIZE 1024
 
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
+
 typedef struct {
     struct TreeNode* queueArray[QUEUE_SIZE];
     int queueSize;
@@ -89,50 +95,82 @@ void printQueue(Queue queue) {
     printf("\nBack: %d \n\n", queue.queueBack);
 }
 
-
 /*
-* Return an array of arrays of size *returnSize.  You need to set this value
-* The sizes of the arrays are returned as *returnColumnSizes array.  You need to set these values
+* returnSize:           Return an array of arrays of size *returnSize.  You need to set this value
+* returnColumnSizes:    The sizes of the arrays are returned as *returnColumnSizes array.  
+                        You need to set these values
 */
 int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes){
     
-    int** returnArray = NULL;
+    *returnColumnSizes = malloc(sizeof(int));
+    int** returnArray = malloc(sizeof(int*));
+    *returnArray = malloc(sizeof(int));
     
     Queue queue;
     initializeQueue(&queue);
     enqueue(&queue, root);
     
-    returnSize = (int*) malloc(sizeof(int));
     *returnSize = 0;
-    returnColumnSizes = (int**) malloc(sizeof(int*));
+    *returnColumnSizes = 0;
     
     struct TreeNode* nodePtr = NULL;
     while (queue.queueSize > 0) {
         
-        *returnSize++;
+        (*returnSize)++;
+
+        int currentRowSize = queue.queueSize;
         
-        int* currentRowSize = (int*) malloc(sizeof(int));
-        *currentRowSize = queue.queueSize;
+        *returnColumnSizes = realloc(*returnColumnSizes, *returnSize * sizeof(int));
+        (*returnColumnSizes)[*returnSize - 1] = currentRowSize;
         
-        // (int*) reallocarray(intersectTable, arraySize, sizeof(int));
-        
-        returnColumnSizes = reallocarray(&returnColumnSizes, *returnSize, sizeof(int));
-        //realloc(&returnColumnSizes, *returnSize);
-        returnColumnSizes[*returnSize - 1] = currentRowSize;
-        
-        int* currentRowValueArray = (int*) malloc(sizeof(int) * *currentRowSize);
-        for (int i = 0; i < *currentRowSize; i++) {
+        int* currentRowValueArray = (int*) malloc(sizeof(int) * currentRowSize);
+        for (int i = 0; i < currentRowSize; i++) {
             nodePtr = dequeue(&queue);
             currentRowValueArray[i] = nodePtr->val;
             if (nodePtr->left != NULL)   enqueue(&queue, nodePtr->left);
             if (nodePtr->right != NULL)  enqueue(&queue, nodePtr->right);
         }
-        
-        realloc(&returnArray, *returnSize);
+        returnArray = realloc(returnArray, sizeof(int*) * (*returnSize));
         returnArray[*returnSize - 1] = currentRowValueArray;
         
     }
     
     return returnArray;
     
+}
+
+/////////////////
+
+int main() {
+
+    struct TreeNode node1;
+    struct TreeNode node2;
+    struct TreeNode node3;
+    struct TreeNode node4;
+    struct TreeNode node5;
+
+    node1.val = 3;
+    node2.val = 9;
+    node3.val = 20;
+    node4.val = 15;
+    node5.val = 7;
+
+    node1.left  = &node2;
+    node1.right = &node3;
+    node3.left  = &node4;
+    node3.right = &node5;
+  
+    int returnSize;
+    int* returnColumnSizes;
+    int** resultArray = levelOrder(&node1, &returnSize, &returnColumnSizes);
+    //int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes){
+    
+    for (int i = 0; i < returnSize; i++) {
+        for (int j = 0; j < returnColumnSizes[i]; j++) {
+            printf("%d ", resultArray[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
 }
