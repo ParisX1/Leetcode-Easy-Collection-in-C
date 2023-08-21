@@ -40,7 +40,7 @@ The number of nodes in the tree is in the range [0, 2000].
 #include <stdio.h>
 #include <stdlib.h>
 
-#define QUEUE_SIZE 1024
+#define QUEUE_SIZE 2048
 
 struct TreeNode {
     int val;
@@ -123,23 +123,21 @@ int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes
         *returnColumnSizes = realloc(*returnColumnSizes, *returnSize * sizeof(int));
         (*returnColumnSizes)[*returnSize - 1] = currentRowSize;
         
-        int* currentRowValueArray = (int*) malloc(sizeof(int) * currentRowSize);
+        returnArray = realloc(returnArray, sizeof(int*) * (*returnSize));
+
+        returnArray[*returnSize - 1] = (int*) malloc(sizeof(int) * currentRowSize);
         for (int i = 0; i < currentRowSize; i++) {
             nodePtr = dequeue(&queue);
-            currentRowValueArray[i] = nodePtr->val;
+            returnArray[*returnSize - 1][i] = nodePtr->val;
             if (nodePtr->left != NULL)   enqueue(&queue, nodePtr->left);
             if (nodePtr->right != NULL)  enqueue(&queue, nodePtr->right);
         }
-        returnArray = realloc(returnArray, sizeof(int*) * (*returnSize));
-        returnArray[*returnSize - 1] = currentRowValueArray;
-        
     }
     
     return returnArray;
-    
 }
 
-/////////////////
+/* Driver Code for Testing */
 
 int main() {
 
@@ -157,13 +155,18 @@ int main() {
 
     node1.left  = &node2;
     node1.right = &node3;
+    node2.left  = NULL;
+    node2.right = NULL;
     node3.left  = &node4;
     node3.right = &node5;
+    node4.left  = NULL;
+    node4.right  = NULL;
+    node5.left  = NULL;
+    node5.right  = NULL;
   
     int returnSize;
     int* returnColumnSizes;
     int** resultArray = levelOrder(&node1, &returnSize, &returnColumnSizes);
-    //int** levelOrder(struct TreeNode* root, int* returnSize, int** returnColumnSizes){
     
     for (int i = 0; i < returnSize; i++) {
         for (int j = 0; j < returnColumnSizes[i]; j++) {

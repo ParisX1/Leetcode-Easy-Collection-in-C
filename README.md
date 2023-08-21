@@ -10,11 +10,14 @@ These were completed in preparation for Georgia Tech's _Graduate Introduction to
 Notes / references for various algorithms below.
 
 ## Binary Tree Level Order Traversal  
-Return the values for a level order traversal of a binary tree.  The returned array is an array of arrays, so each level is a nested array.
+Return the values for a level order traversal of a binary tree.  The returned array is an array of arrays, so each level is a nested array.  
+  
+This question probably took the longest to complete.  I setup the queue first, tested it and then come back to finish the problem as the last to complete.  I was working over two days to get it passing.  The issues were around getting pointers to pointers working correctly, with malloc() and realloc().  Also reallocarray() wouldn't work on windows, which is what I was testing on.  
 
 ### Key Features
 * Requires the creation of a queue data structure
 * Dynamic creation of arrays based on number of, and the size of each, sub-array
+* Malloc() used to allocate memory and the realloc() to dynamically resize 
 * For a detailed discussion, see _Algorithms in C_ Chapter Five, especially Ch 5.6 on tree traversal
 
 ## Valid Sudoku  

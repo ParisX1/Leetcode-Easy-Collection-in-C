@@ -30,45 +30,25 @@ Follow up: If you have figured out the O(n) solution, try coding another solutio
 
 #include <stdio.h>
 
-int maxSubArray(int* nums, int numsSize){
-
-    // Start left end and right end to find best starting and ending point
-    // Eg from right-end, if the sum is positive, include
-
-    //if (numsSize == 1 ) return nums[0];
-
-    int startSum = nums[0];
-    int endSum = 0;
-    //if (numsSize > 1) endSum = nums[numsSize-1];
-    
-    int midPoint = numsSize / 2;
-    
-    for (int i = 1; i < midPoint; i++) {
-        if (startSum + nums[i] > nums[i]) startSum = startSum + nums[i];
-        else startSum = nums[i];
-    }
-
-    for (int i = numsSize - 1; i >= midPoint; i--) {
-        if (endSum + nums[i] > nums[i]) endSum = endSum + nums[i];
-        else endSum = nums[i];
-    }
-
-    printf("startSum: \t%d \nendSum: \t%d \n", startSum, endSum);
-
-    int totalSum = startSum + endSum;
-    if (totalSum > startSum && totalSum > endSum) return totalSum;
-    else {
-        if (startSum > endSum) return startSum;
-        else return endSum;
-    }
-    /*
-    if (startSum + endSum > startSum) return startSum + endSum;
-    else {
-        if (startSum > endSum) return startSum;
-        else return endSum;
-    }
-    */
+int max(int num1, int num2) {
+    if (num1 > num2)    return num1;
+    else                return num2;
 }
+
+int maxSubArray(int* nums, int numsSize){
+    int currentNum;
+    int maxSum  = nums[0];  // The current max sub-array sum
+    int nextSum = nums[0];  // "Lookahead" for a larger sub-array
+    for (int i = 1; i < numsSize; i++) {
+        currentNum  = nums[i];
+        nextSum     = max(currentNum, nextSum + currentNum);    // Look for something bigger to replace maxSum
+        maxSum      = max(maxSum, nextSum);                     // Update maxSum if we find something bigger
+    }
+    return maxSum;
+}
+
+// Note: when nextSum > maxSum, we are essentially "setting" nextSum = maxSum, as maxSum = max(v1, v2)
+// So we don't need an if (nextSum > nextSum), this is taken care of in the max()
 
 int main() {
     /*
